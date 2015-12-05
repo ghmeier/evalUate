@@ -1,0 +1,73 @@
+/**
+* Class.js
+*
+*/
+
+module.exports = {
+    schema:true,
+    connection:"mongo",
+    attributes: {
+        catalogUrl:{
+            type:"string"
+        },
+        classComments:{
+            type:"string"
+        },
+        classNumber:{
+            type:"int"
+        },
+        classPreReqs:{
+            type:"string"
+        }
+        classTitle:{
+            type:"string"
+        },
+        codeLink:{
+            type:"string"
+        },
+        countSectionsSelected:{
+            type:"int"
+        },
+        creditHigh:{
+            type:"int"
+        },
+        creditLow:{
+            type:"int"
+        },
+        creditType:{
+            type:"string"
+        },
+        departmentTitle:{
+            type:"string"
+        },
+        deptCode:{
+            type:"string"
+        },
+        dvstyIntlDisplay:{
+            type:"string"
+        },
+        edition:{
+            type:"string"
+        },
+        gradeType:{
+            type:"string"
+        },
+        id:{
+            type:"int",
+            required:true
+        },
+        sections:{
+            type:"array"
+        },
+        semesterCode{
+            type:"int"
+        },
+        semesterId:{
+            type:"int"
+        },
+        semesterYear:{
+            type:"string"
+        }
+    }
+};
+
