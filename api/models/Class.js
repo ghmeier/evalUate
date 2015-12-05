@@ -18,7 +18,7 @@ module.exports = {
         },
         classPreReqs:{
             type:"string"
-        }
+        },
         classTitle:{
             type:"string"
         },
@@ -59,7 +59,7 @@ module.exports = {
         sections:{
             type:"array"
         },
-        semesterCode{
+        semesterCode:{
             type:"int"
         },
         semesterId:{
