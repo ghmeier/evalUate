@@ -14,9 +14,10 @@ module.exports = {
         current:{
             type:"string"
         },
-        id:{
+        sem_id:{
             type:"int",
-            required:true
+            required:true,
+            unique:true
         },
         semNum:{
             type:"int",

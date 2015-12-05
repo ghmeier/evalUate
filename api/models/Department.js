@@ -7,10 +7,12 @@
 
 module.exports = {
     schema:true,
+    connection:"mongo",
   attributes: {
-    id:{
+    dep_id:{
         type:"int",
-        required:true
+        required:true,
+        unique:true
     },
     title:{
         type:"string",

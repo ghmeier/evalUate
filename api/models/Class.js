@@ -52,9 +52,10 @@ module.exports = {
         gradeType:{
             type:"string"
         },
-        id:{
+        class_id:{
             type:"int",
-            required:true
+            required:true,
+            unique:true
         },
         sections:{
             type:"array"
