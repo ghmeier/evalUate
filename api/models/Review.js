@@ -6,7 +6,7 @@
 */
 
 module.exports = {
-    schema:true,f
+    schema:true,
 
     attributes: {
         message:{
