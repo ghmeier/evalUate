@@ -10,7 +10,7 @@ for (i=0;i<departments.length;i++){
     current.id = null;
     request.post({
         headers:{"Content-Type":"application/json"},
-        url:"http://localhost:1337/department",
+        url:"http://evaluate-app.herokuapp.com/department",
         json:current
     },function(err,res,body){
         if (err){
