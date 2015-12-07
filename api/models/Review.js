@@ -6,7 +6,8 @@
 */
 
 module.exports = {
-    schema:true,
+    schema:true,f
+
     attributes: {
         message:{
             type:"string",
@@ -23,6 +24,10 @@ module.exports = {
             type:"int",
             defaultsTo:0,
             required:true
+        },
+        professor:{
+            type:"string",
+            defaultsTo:""
         }
     }
 };
