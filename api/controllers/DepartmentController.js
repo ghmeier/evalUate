@@ -6,6 +6,16 @@
  */
 
 module.exports = {
-	
+	get_departments:function(req,res){
+        Department.find({}).exec(function (err, found){
+            var deptCodes = [];
+
+            for (i=0;i<found.length;i++){
+                deptCodes.push(found[i].abbreviation);
+            }
+
+            res.json({data:deptCodes});
+        });
+    }
 };
 
