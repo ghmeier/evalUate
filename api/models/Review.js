@@ -7,7 +7,7 @@
 
 module.exports = {
     schema:true,
-
+    connection:"mongo",
     attributes: {
         message:{
             type:"string",
