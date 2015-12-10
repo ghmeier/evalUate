@@ -23,7 +23,7 @@ module.exports.connections = {
   mongo: {
     adapter: 'sails-mongo',
     host: process.env.HOST,//'ds051368.mongolab.com',
-    port: process.env.POST,//51368,
+    port: process.env.DB_PORT,//51368,
     user: process.env.USER,//'evaluate',
     password: process.env.PASSWORD,//'evaluate',
     database: process.env.DATABASE//'heroku_qrqml96w'
