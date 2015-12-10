@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>evalUate</title>
+    <title>Evaluate</title>
     <!-- Compiled and minified CSS -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
@@ -128,7 +128,14 @@
     </script>
 
     <script id="department-sidebar-template" type="text/template" class="template">
-        <li class="logo black-text"><h5>EvalUate</h5></li>
+        <li class="logo black-text"><h5>Evaluate</h5></li>
+        <li class="search">
+            <div class="search-wrapper card">
+                <input style="width:130px;color:black;margin-left:10px;" id="search" type="search" value="<%- query %>">
+
+                <i id="search-button" class="material-icons right" style="color:black">search</i>
+            </div>
+        </li>
         <% _.each(departments, function(dept){ %>
             <li class="collecion-item department_listing black-text" data-dept="<%- dept %>" >
                 <%- dept %><a class="secondary-content"><i class="material-icons">keyboard_arrow_right</i></a>
@@ -144,13 +151,16 @@
         </div>
         <div class="row">
             <div class="col s12 m12">
-                <ul class="collection">
+                <div class="collection">
                     <% _.each(courses.models, function(course){ %>
-                        <li class="collection-item" data-course="<%- course.get('class_id') %>">
+                        <a class="collection-item class_tag" data-course="<%- course.get('class_id') %>">
+                            <div>
                             <span class="course-name"><%- course.get("deptCode")+" "+course.get("classNumber") %></span>
-                            <a class="secondary-content"><i class="material-icons">keyboard_arrow_right</i></a></li>
+                            <span class="secondary-content"><i class="material-icons">keyboard_arrow_right</i></span>
+                            </div>
+                        </a>
                     <% }); %>
-                </ul>
+                </div>
             </div>
         </div>
     </script>

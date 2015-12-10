@@ -13,5 +13,4 @@ $(document).ready(function()
 
 		var deptsView = new DepartmentListingView({depts: depts});
 	});
-
 });

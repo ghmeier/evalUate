@@ -18,3 +18,11 @@
 #reviews{
     margin-top:20px;
 }
+
+.logo:hover{
+    background-color: white;
+}
+
+.department_listing {
+    cursor: pointer;
+}

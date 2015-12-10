@@ -55,6 +55,7 @@ var ReviewsView = Backbone.View.extend(
 	},
 	downVote:function(e){
 		var value = parseInt($(e.target).closest('.card-action').find(".badge").text().replace(" helpfulness",""));
+		var id = $(e.target).closest(".card-action").data("review");
 
 		value--;
 		$.get(app+"/Review/update/"+id+"?helpfulness="+value,function(data){
@@ -119,7 +120,8 @@ var ClassListingView = Backbone.View.extend({
 var DepartmentListingView = Backbone.View.extend(
 {
 	events:{
-		"click .department_listing":"getCourses"
+		"click .department_listing":"getCourses",
+		'keyup #search':"searchDepartments"
 	},
 	el: "#departments-sidebar",
 	template: _.template(document.getElementById("department-sidebar-template").textContent),
@@ -130,7 +132,7 @@ var DepartmentListingView = Backbone.View.extend(
 	},
 	render: function()
 	{
-		this.$el.html(this.template({departments: this.depts}));
+		this.$el.html(this.template({query:"",departments: this.depts}));
 		return this;
 	},
 	getCourses: function(e){
@@ -148,6 +150,20 @@ var DepartmentListingView = Backbone.View.extend(
 			self.classView = classView;
 			$(".department-sidebar").sideNav("hide");
 		});
+	},
+	searchDepartments:function(e){
+		var query = $(e.target).val();
+
+		var filtered = _.filter(this.depts,function(x){
+			return x.indexOf(query.toUpperCase()) == 0 || x.replace(" ","").indexOf(query.toUpperCase()) == 0;
+		});
+
+		this.$el.html(this.template({query:query,departments: filtered}));
+
+		$("#search").focus(function(){
+		  this.selectionStart = this.selectionEnd = this.value.length;
+		});
+		$("#search").focus();
 	},
 	cleanup: function() {
 	  this.$el.empty();
