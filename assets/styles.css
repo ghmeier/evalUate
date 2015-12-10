@@ -1,0 +1,20 @@
+@media (min-width: 991px) {
+    main {
+        padding-left: 240px;
+    }
+}
+
+.add-button{
+    position: fixed;
+    z-index:10000;
+    bottom: 10px;
+    right:10px;
+}
+
+#courses{
+    margin-top:20px;
+}
+
+#reviews{
+    margin-top:20px;
+}

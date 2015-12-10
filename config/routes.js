@@ -32,10 +32,6 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': {
-    view: 'homepage'
-  },
-
   'GET /get_departments':"DepartmentController.get_departments",
   'GET /get_classes/:deptCode':"ClassController.get_classes",
   'GET /get_professors/:class_id':"ClassController.get_professor",
