@@ -20,17 +20,15 @@ module.exports = {
     },
 
     get_professor:function(req,res){
-        var number = req.params.classNumber;
-        var deptCode = req.params.deptCode;
+        var class_id = req.params.class_id;
 
-        Class.find({deptCode:deptCode,classNumber:number}).exec(function (err,found){
+        Class.find({class_id:class_id}).exec(function (err,found){
             var course = found[0];
             var instructors = [];
 
             for (i=0;i<course.sections.length;i++){
                 var section = course.sections[i];
                 for(j=0;j<section.sectionTimes.length;j++){
-
                     instructors.push(section.sectionTimes[j].instrName);
                 }
             }
