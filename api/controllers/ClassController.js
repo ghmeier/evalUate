@@ -17,6 +17,26 @@ module.exports = {
 
             res.json({data:courseNames});
         });
+    },
+
+    get_professor:function(req,res){
+        var number = req.params.classNumber;
+        var deptCode = req.params.deptCode;
+
+        Class.find({deptCode:deptCode,classNumber:number}).exec(function (err,found){
+            var course = found[0];
+            var instructors = [];
+
+            for (i=0;i<course.sections.length;i++){
+                var section = course.sections[i];
+                for(j=0;j<section.sectionTimes.length;j++){
+
+                    instructors.push(section.sectionTimes[j].instrName);
+                }
+            }
+
+            res.json({data:instructors});
+        });
     }
 };
 

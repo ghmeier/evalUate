@@ -37,7 +37,8 @@ module.exports.routes = {
   },
 
   'GET /get_departments':"DepartmentController.get_departments",
-  'GET /get_classes/:deptCode':"ClassController.get_classes"
+  'GET /get_classes/:deptCode':"ClassController.get_classes",
+  'GET /get_classes/:deptCode/:classNumber':"ClassController.get_professor"
 
   /***************************************************************************
   *                                                                          *
