@@ -14,7 +14,7 @@ module.exports = {
             type:"string"
         },
         classNumber:{
-            type:"int"
+            type:"string"
         },
         classPreReqs:{
             type:"string"
@@ -61,7 +61,7 @@ module.exports = {
             type:"array"
         },
         semesterCode:{
-            type:"int"
+            type:"string"
         },
         semesterId:{
             type:"int"

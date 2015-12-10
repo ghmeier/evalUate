@@ -8,6 +8,7 @@ for (i=0;i<departments.length;i++){
     var current = departments[i];
     current["dep_id"] = current.id;
     current.id = null;
+    console.log("Department "+i);
     request.post({
         headers:{"Content-Type":"application/json"},
         url:"http://evaluate-app.herokuapp.com/department",
@@ -26,8 +27,8 @@ for (i=0;i<departments.length;i++){
             },
             url: "http://classes.iastate.edu/app/rest/courses/preferences",
             json: {
-                "defSem":3,
-                "selectedTerm":3,
+                "defSem":2,
+                "selectedTerm":2,
                 "selectedDepartment":department.abbreviation,
                 "startTime":"",
                 "stopTime":""
@@ -45,35 +46,23 @@ for (i=0;i<departments.length;i++){
             for (k=0;k<courses.length;k++){
                 var course = courses[k];
                 course['class_id'] = course.id;
-                course.id = null;
+                delete course.id;
 
                 request.post({
                     headers:{"Content-Type":"application/json"},
                     url:"http://localhost:1337/class",
                     json:course
-                },function(err,res,body){
-                    var raw = body;
+                },function(c_err,c_res,c_body){
+                    if (c_err){
+                        console.log(c_err);
+                        return;
+                    }
 
-                    console.log("Added course "+raw.class_id);
+                    var raw = c_body;
+
+                    console.log(raw.deptCode + " "+raw.classNumber);
                 });
             }
         });
     });
 }
-/*
-    for (i=0;i<sem_data.length;i++){
-        var cur_sem = sem_data[i];
-
-        departments.once("value",function(dep_raw){
-            var dep_data = dep_raw.val();
-            for (j=0;j<dep_data.length;j++){
-                var cur_dep = dep_data[j];
-                var id = this.id;
-
-                });
-            }
-            return;
-        },{id:cur_sem.id});
-    }
-});
-*/
