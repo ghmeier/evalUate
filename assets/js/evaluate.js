@@ -1,4 +1,4 @@
-var app = "http://evaluate-app.herokuapp.com";
+var app = "https://evaluate-app.herokuapp.com";
 
 $(document).ready(function()
 {
