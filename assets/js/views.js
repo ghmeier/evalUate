@@ -196,6 +196,8 @@ var CreateReviewView = Backbone.View.extend({
 			self.professors = [];
 			for (i=0;i<profs.length;i++){
 				if (profs[i] && profs[i] !== "" && _.intersection(self.professors,[profs[i]]).length == 0){
+
+				    profs[i] =  profs[i].replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 					self.professors.push(profs[i]);
 				}
 			}
