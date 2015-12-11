@@ -6,7 +6,7 @@
 
 .add-button{
     position: fixed;
-    z-index:10000;
+    z-index:1000;
     bottom: 10px;
     right:10px;
 }

@@ -14,17 +14,23 @@ var ReviewsView = Backbone.View.extend(
 		this.class_id = options.class_id;
 		this.title = options.title;
 		this.reviews = options.reviews;
-		this.render();
 	},
-	render: function()
-	{
+	render: function(){
 		this.$el.html(this.template({title:this.title,reviews: this.reviews}));
-		$('.modal-trigger').leanModal();
+		if (!this.createView){
+			this.createView = new CreateReviewView({class_id:this.class_id,title:this.title},function(view){
+				view.setElement("#create-review").render();
+			});
+			this.createView.on("addedReview",this.addReview,this);
+		}else{
+			this.createView.initialize({class_id:this.class_id,title:this.title},function(view){
+				view.setElement("#create-review").render();
+			});
+		}
 		return this;
 	},
-	renderCreateReview: function(){
-		this.createView = new CreateReviewView({class_id:this.class_id,title:this.title});
-		this.createView.on("addedReview",this.addReview,this);
+	renderCreateReview:function(){
+		$('#create-review').openModal();
 	},
 	addReview: function(data){
 		var view = new Review(data);
@@ -91,10 +97,6 @@ var ClassListingView = Backbone.View.extend({
 		var name = $(element).find(".course-name").text();
 		var self = this;
 
-		if (self.reviewsView){
-			self.reviewsView.cleanup();
-		}
-
 		$.get(app+"/get_reviews/"+class_id,function(data){
 			self.reviews = new ReviewsCollection();
 
@@ -102,11 +104,16 @@ var ClassListingView = Backbone.View.extend({
 				var review = new Review(data.data[i]);
 				self.reviews.add(review);
 			}
-			self.reviewsView = new ReviewsView({class_id:class_id,title:name,reviews:self.reviews});
+
+			if (!self.reviewsView){
+				self.reviewsView = new ReviewsView({class_id:class_id,title:name,reviews:self.reviews});
+			}else{
+				self.reviewsView.initialize({class_id:class_id,title:name,reviews:self.reviews});
+			}
+			self.reviewsView.setElement("#reviews").render();
 		});
 	},
 	cleanup: function() {
-		console.log("clearing-course");
 		this.stopListening();
 		this.$el.empty();
 	    this.unbind();
@@ -140,14 +147,13 @@ var DepartmentListingView = Backbone.View.extend(
 		this.department = department;
 		var self = this;
 
-		if (this.classView){
-			this.classView.cleanup();
-		}
-
-
 		$.get(app+"/class?deptCode="+department,function(data){
-			var classView = new ClassListingView({deptTitle:department,courses: data});
-			self.classView = classView;
+			if (!self.classView){
+				self.classView = new ClassListingView({deptTitle:department,courses: data});
+			}else{
+				self.classView.initialize({deptTitle:department,courses:data});
+			}
+
 			$(".department-sidebar").sideNav("hide");
 		});
 	},
@@ -178,8 +184,7 @@ var CreateReviewView = Backbone.View.extend({
 	},
 	el: "#create-review",
 	template: _.template(document.getElementById("create-review-template").textContent),
-	initialize: function(options){
-
+	initialize: function(options,callback){
 		this.departments = [];
 		this.class_id = options.class_id;
 		this.title = options.title;
@@ -187,14 +192,21 @@ var CreateReviewView = Backbone.View.extend({
 		var self = this;
 
 		$.get(app+"/get_professors/"+this.class_id,function(data){
-			self.professors= data.data;
-			self.render();
+			var profs = data.data;
+			self.professors = [];
+			for (i=0;i<profs.length;i++){
+				if (profs[i] && profs[i] !== "" && _.intersection(self.professors,[profs[i]]).length == 0){
+					self.professors.push(profs[i]);
+				}
+			}
+			//self.render();
+			callback(self);
 		});
 	},
 	render:function(){
-
-		this.$el.html(this.template({title:this.title,professors:this.professors}));
+		this.$el.empty().append(this.template({title:this.title,professors:this.professors}));
 		$('select').material_select();
+		return this;
 	},
 	submitReview:function(e){
 		var prof = $("#prof").val();
