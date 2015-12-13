@@ -147,7 +147,7 @@ var DepartmentListingView = Backbone.View.extend(
 		this.department = department;
 		var self = this;
 
-		$.get(app+"/class?deptCode="+department,function(data){
+		$.get(app+"/get_all_classes?deptCode="+department,function(data){
 			if (!self.classView){
 				self.classView = new ClassListingView({deptTitle:department,courses: data});
 			}else{
@@ -193,18 +193,19 @@ var CreateReviewView = Backbone.View.extend({
 
 		$.get(app+"/get_professors/"+this.class_id,function(data){
 			var profs = data.data;
+			var profs_raw = [];
 			self.professors = [];
 			for (i=0;i<profs.length;i++){
-				if (profs[i] && profs[i] !== "" && _.intersection(self.professors,[profs[i]]).length == 0){
-
+				if (profs[i] && profs[i] !== "" && _.intersection(profs_raw,[profs[i]]).length == 0){
 				    var lowered =  profs[i].replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 				    var split = lowered.split(" ");
 				    var lastName = split[0];
-				    lowered = split.splice(0,1).join(" ")+lastName;
+
+				    lowered = split.splice(1,2).join(" ")+" "+lastName;
 					self.professors.push(lowered);
+					profs_raw.push(profs[i]);
 				}
 			}
-			//self.render();
 			callback(self);
 		});
 	},

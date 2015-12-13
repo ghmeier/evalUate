@@ -34,6 +34,7 @@ module.exports.routes = {
 
   'GET /get_departments':"DepartmentController.get_departments",
   'GET /get_classes/:deptCode':"ClassController.get_classes",
+  'GET /get_all_classes':"ClassController.get_all_classes",
   'GET /get_professors/:class_id':"ClassController.get_professor",
   'GET /get_reviews/:class_id':"ReviewController.get_reviews"
 

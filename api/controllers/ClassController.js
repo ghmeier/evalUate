@@ -9,7 +9,6 @@ module.exports = {
 	get_classes:function(req,res){
         var deptCode = req.params.deptCode;
         Class.find({"deptCode":deptCode}).exec(function (err, found){
-            console.log("getting...");
             var courseNames = [];
 
             for (i=0;i<found.length;i++){
@@ -17,6 +16,14 @@ module.exports = {
             }
 
             res.json({data:courseNames});
+        });
+    },
+
+    get_all_classes:function(req,res){
+        var deptCode = req.params.deptCode;
+
+        Class.find({"deptCode":deptCode}).exec(function(err,found){
+            res.json(found);
         });
     },
 
