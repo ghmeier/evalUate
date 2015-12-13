@@ -20,9 +20,9 @@ module.exports = {
     },
 
     get_all_classes:function(req,res){
-        var deptCode = req.params.deptCode;
+        var deptCode = req.query.deptCode;
+        Class.find({deptCode:deptCode }).exec(function(err,found){
 
-        Class.find({"deptCode":deptCode}).exec(function(err,found){
             res.json(found);
         });
     },
