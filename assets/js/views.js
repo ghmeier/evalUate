@@ -200,7 +200,7 @@ var CreateReviewView = Backbone.View.extend({
 				    var lowered =  profs[i].replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 				    var split = lowered.split(" ");
 				    var lastName = split[0];
-				    lowered = split.splice(0,1,).join(" ")+lastName.
+				    lowered = split.splice(0,1).join(" ")+lastName;
 					self.professors.push(lowered);
 				}
 			}
