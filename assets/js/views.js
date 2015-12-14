@@ -180,7 +180,8 @@ var DepartmentListingView = Backbone.View.extend(
 
 var CreateReviewView = Backbone.View.extend({
 	events:{
-		"click #review-submit":"submitReview"
+		"click #review-submit":"submitReview",
+		"change #prof":"checkProf"
 	},
 	el: "#create-review",
 	template: _.template(document.getElementById("create-review-template").textContent),
@@ -216,6 +217,13 @@ var CreateReviewView = Backbone.View.extend({
 	},
 	submitReview:function(e){
 		var prof = $("#prof").val();
+		if (prof === "custom"){
+			prof = $("#prof-last").val();
+			if ($("#prof-first").val() && $("#prof-first").val()!= ""){
+				prof += ", " +$("#prof-first").val();
+			}
+		}
+
 		var review = $("#review").val();
 		var workload = $("#workload").val();
 		var self = this;
@@ -226,6 +234,15 @@ var CreateReviewView = Backbone.View.extend({
 			self.cleanup();
 		});
 
+	},
+	checkProf:function(e){
+		var prof = $(e.target).val();
+
+		if (prof === "custom"){
+			$(".add-prof").show();
+		}else{
+			$(".add-prof").hide();
+		}
 	},
 	cleanup: function() {
 		$(this.el).off('click', "#review-submit");
