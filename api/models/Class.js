@@ -20,7 +20,7 @@ module.exports = {
             type:"string",
             required:true,
             unique:true
-        }
+        },
         classPreReqs:{
             type:"string"
         },

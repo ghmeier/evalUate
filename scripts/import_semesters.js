@@ -15,6 +15,7 @@ for (i=0;i<departments.length;i++){
             return;
         }
 
+        console.log(body);
         var department = JSON.parse(body)[0];
         request.post({
             headers:{
@@ -42,6 +43,7 @@ for (i=0;i<departments.length;i++){
             for (k=0;k<courses.length;k++){
                 var course = courses[k];
                 course['class_id'] = course.id;
+                course['course_name'] = course["deptCode"]+" "+course["classNumber"];
                 delete course.id;
 
                         request.post({
