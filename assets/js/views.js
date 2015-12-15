@@ -72,7 +72,8 @@ var ReviewsView = Backbone.View.extend(
 
 var ClassListingView = Backbone.View.extend({
 	events:{
-		"click .collection-item":"getReviews"
+		"click .collection-item":"getReviews",
+		'keyup #search':"searchClassListing"
 	},
 	el: "#courses",
 	template: _.template(document.getElementById("class-listing").textContent),
@@ -112,6 +113,20 @@ var ClassListingView = Backbone.View.extend({
 			}
 			self.reviewsView.setElement("#reviews").render();
 		});
+	},
+	searchClassListing:function(e){
+		var query = $(e.target).val();
+
+		var filtered = _.filter(this.depts,function(x){
+			return x.indexOf(query.toUpperCase()) >= 0 || x.replace(" ","").indexOf(query.toUpperCase()) >= 0;
+		});
+
+		this.$el.html(this.template({query:query,departments: filtered}));
+
+		$("#search-class").focus(function(){
+		  this.selectionStart = this.selectionEnd = this.value.length;
+		});
+		$("#search-class").focus();
 	},
 	cleanup: function() {
 		this.stopListening();
