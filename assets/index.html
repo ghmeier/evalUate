@@ -178,11 +178,11 @@
                 <div class="collection">
                     <a class="collection-item">
                         <div class="input-field">
-                          <input id="search-class" placeholder="Search" type="search" required>
+                          <input id="search-class" placeholder="Search" type="search" value="<%- query %>">
                           <i class="material-icons">close</i>
                         </div>
                     </a>
-                    <% _.each(courses.models, function(course){ %>
+                    <% _.each(courses, function(course){ %>
                         <a class="collection-item class-item class_tag" data-course="<%- course.get('class_id') %>">
                             <div>
                             <span class="course-name"><%- course.get("deptCode")+" "+course.get("classNumber") %></span>

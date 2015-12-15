@@ -7,8 +7,13 @@
 
 module.exports = {
     get_reviews:function(req,res){
+        if (!req.params.class_id){
+            res.json({data:[]});
+            return;
+        }
+
         var class_id = req.params.class_id;
-        console.log("uhhhh")
+
         Review.find({"class_id":class_id}).sort("helpfulness DESC").sort("createdAt DESC").exec(function(err,found){
             res.json({data:found});
         });

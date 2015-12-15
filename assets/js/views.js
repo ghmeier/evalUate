@@ -73,7 +73,7 @@ var ReviewsView = Backbone.View.extend(
 var ClassListingView = Backbone.View.extend({
 	events:{
 		"click .class-item":"getReviews",
-		'keyup #search':"searchClassListing"
+		'keyup #search-class':"searchClassListing"
 	},
 	el: "#courses",
 	template: _.template(document.getElementById("class-listing").textContent),
@@ -88,7 +88,7 @@ var ClassListingView = Backbone.View.extend({
 		this.render();
 	},
 	render: function() {
-		this.$el.html(this.template({title:this.title,courses:this.courses}));
+		this.$el.html(this.template({query:"",title:this.title,courses:this.courses.models}));
 		return this;
 	},
 	getReviews:function(e) {
@@ -115,13 +115,14 @@ var ClassListingView = Backbone.View.extend({
 		});
 	},
 	searchClassListing:function(e){
-		var query = $(e.target).val();
+		var query = $(e.target).val().toString();
 
-		var filtered = _.filter(this.depts,function(x){
+		var filtered = _.filter(this.courses.models,function(model){
+			var x = model.get("deptCode")+" "+model.get("classNumber");
 			return x.indexOf(query.toUpperCase()) >= 0 || x.replace(" ","").indexOf(query.toUpperCase()) >= 0;
 		});
 
-		this.$el.html(this.template({query:query,departments: filtered}));
+		this.$el.html(this.template({query:query,title:this.title,courses: filtered}));
 
 		$("#search-class").focus(function(){
 		  this.selectionStart = this.selectionEnd = this.value.length;

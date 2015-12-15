@@ -7,6 +7,11 @@
 
 module.exports = {
 	get_classes:function(req,res){
+        if (!req.params.deptCode){
+            res.json({data:[]});
+            return;
+        }
+
         var deptCode = req.params.deptCode;
         Class.find({"deptCode":deptCode}).exec(function (err, found){
             var courseNames = [];
@@ -20,6 +25,11 @@ module.exports = {
     },
 
     get_all_classes:function(req,res){
+        if (!req.params.deptCode){
+            res.json({data:[]});
+            return;
+        }
+
         var deptCode = req.query.deptCode;
         Class.find({deptCode:deptCode }).exec(function(err,found){
 
@@ -28,7 +38,12 @@ module.exports = {
     },
 
     get_professor:function(req,res){
-        var class_id = req.params.class_id;
+        if (!req.params.class_id){
+            res.json({data:[]});
+            return;
+        }
+
+        var class_id = req.params.class_id || "";
 
         Class.find({class_id:class_id}).exec(function (err,found){
             var course = found[0];
