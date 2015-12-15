@@ -79,10 +79,16 @@ var ClassListingView = Backbone.View.extend({
 	template: _.template(document.getElementById("class-listing").textContent),
 	initialize: function(options){
 		var courses = new ClassCollection();
-
-		_.each(options.courses,function(course){
+		console.log(options.courses);
+		_.chain(options.courses)
+		.sortBy(function(course){
+			console.log(course);
+			return parseInt(course.get("classNumber").replace(/[A-Za-z]/g,""));
+		})
+		.each(function(course){
 			courses.add(new Class(course));
 		});
+
 		this.courses = courses;
 		this.title = options.deptTitle;
 		this.render();

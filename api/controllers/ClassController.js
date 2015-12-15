@@ -25,7 +25,7 @@ module.exports = {
     },
 
     get_all_classes:function(req,res){
-        if (!req.params.deptCode){
+        if (!req.query.deptCode){
             res.json({data:[]});
             return;
         }
