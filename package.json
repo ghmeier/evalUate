@@ -23,6 +23,7 @@
     "request": "^2.67.0",
     "sails": "~0.11.2",
     "sails-disk": "~0.10.0",
+    "sails-hook-mongoat": "^1.0.8",
     "sails-mongo": "^0.11.5"
   },
   "scripts": {

@@ -16,6 +16,11 @@ module.exports = {
         classNumber:{
             type:"string"
         },
+        courseName:{
+            type:"string",
+            required:true,
+            unique:true
+        }
         classPreReqs:{
             type:"string"
         },
@@ -69,6 +74,7 @@ module.exports = {
         semesterYear:{
             type:"string"
         }
+  ],
     }
 };
 
