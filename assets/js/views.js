@@ -72,7 +72,7 @@ var ReviewsView = Backbone.View.extend(
 
 var ClassListingView = Backbone.View.extend({
 	events:{
-		"click .collection-item":"getReviews",
+		"click .class-item":"getReviews",
 		'keyup #search':"searchClassListing"
 	},
 	el: "#courses",
