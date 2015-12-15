@@ -176,6 +176,12 @@
         <div class="row">
             <div class="col s12 m12">
                 <div class="collection">
+                    <a class="collection-item">
+                        <div class="input-field">
+                          <input id="search" placeholder="Search" type="search" required>
+                          <i class="material-icons">close</i>
+                        </div>
+                    </a>
                     <% _.each(courses.models, function(course){ %>
                         <a class="collection-item class_tag" data-course="<%- course.get('class_id') %>">
                             <div>

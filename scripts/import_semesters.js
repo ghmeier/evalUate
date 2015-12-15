@@ -9,17 +9,13 @@ for (i=0;i<departments.length;i++){
     current["dep_id"] = current.id;
     current.id = null;
     console.log("Department "+i);
-    request.post({
-        headers:{"Content-Type":"application/json"},
-        url:"http://evaluate-app.herokuapp.com/department",
-        json:current
-    },function(err,res,body){
+    request.get("https://evaluate-app.herokuapp.com/department?dep_id="+current["dep_id"],function(err,res,body){
         if (err){
             console.log(err);
             return;
         }
 
-        var department = body;
+        var department = JSON.parse(body)[0];
         request.post({
             headers:{
                 'Content-Type':'application/json',
@@ -28,14 +24,13 @@ for (i=0;i<departments.length;i++){
             url: "http://classes.iastate.edu/app/rest/courses/preferences",
             json: {
                 "defSem":2,
-                "selectedTerm":2,
+                "selectedTerm":"1",
                 "selectedDepartment":department.abbreviation,
                 "startTime":"",
                 "stopTime":""
             }
         },function(error,response,bdy){
             if(error){
-                        //console.log("ERROR: "+ error);
                 return;
             }
             if (!bdy){
@@ -43,25 +38,27 @@ for (i=0;i<departments.length;i++){
             }
 
             var courses = bdy.response;
+
             for (k=0;k<courses.length;k++){
                 var course = courses[k];
                 course['class_id'] = course.id;
                 delete course.id;
 
-                request.post({
-                    headers:{"Content-Type":"application/json"},
-                    url:"http://localhost:1337/class",
-                    json:course
-                },function(c_err,c_res,c_body){
-                    if (c_err){
-                        console.log(c_err);
-                        return;
-                    }
+                        request.post({
+                            headers:{"Content-Type":"application/json"},
+                            url:"http://evaluate-app.herokuapp.com/class",
+                            json:course
+                        },function(c_err,c_res,c_body){
+                            if (c_err){
+                                console.log(c_err);
+                                return;
+                            }
 
-                    var raw = c_body;
-
-                    console.log(raw.deptCode + " "+raw.classNumber);
-                });
+                            var raw = c_body;
+                            if (raw){
+                                console.log(raw.deptCode + " "+raw.classNumber);
+                            }
+                        });
             }
         });
     });
