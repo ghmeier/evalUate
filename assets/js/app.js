@@ -10,23 +10,21 @@ define([
         var Application = {
         initialize: function () {
             var self = this;
-
+            this.router = new Router();
             //start the backbone history opbject
             Backbone.history.start();
 
             //initialize foundation JS
             $(document).ready(function() {
 
-                    $.get(app + "/department", function(data)
-                    {
-                        var depts = [];
-                        for(var id in data)
-                        {
-                            depts.push(data[id].abbreviation);
-                        }
+                $.get(app + "/department", function(data){
+                    var depts = [];
+                    for(var id in data){
+                        depts.push(data[id].abbreviation);
+                    }
 
-                        var deptsView = new DepartmentListingView({depts: depts});
-                    });
+                    var deptsView = new DepartmentListingView({depts: depts});
+                });
             });
         }
 
